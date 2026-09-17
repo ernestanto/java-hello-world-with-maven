@@ -2,19 +2,20 @@ pipeline {
     agent any
 
     stages {
-       stage('Build') {
+      stage('Build') {
     steps {
         sh '''
-            echo "=== ROOT ==="
-            ls -ld /
-            echo "=== USR ==="
-            ls -ld /usr
-            echo "=== USR SHARE ==="
-            ls -ld /usr/share
-            echo "=== MAVEN ==="
-            ls -ld /usr/share/maven || true
-            echo "=== MOUNT INFO ==="
-            grep -E ' /usr | /usr/share|/var/lib/jenkins' /proc/self/mountinfo || true
+            echo "=== SHELL PID ==="
+            echo $$
+
+            echo "=== PARENT PID ==="
+            ps -o pid,ppid,user,cmd -p $$
+
+            echo "=== PROCESS ROOT ==="
+            readlink /proc/$$/root
+
+            echo "=== MOUNTS ==="
+            cat /proc/$$/mountinfo | head -20
         '''
     }
 }
