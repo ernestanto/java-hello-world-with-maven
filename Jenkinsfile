@@ -1,17 +1,24 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.8.4'
-    }
-
     stages {
        stage('Build') {
     steps {
-        sh 'echo "PATH=$PATH"'
-        sh 'echo "MAVEN_HOME=$MAVEN_HOME"'
-        sh 'ls -la /usr/share/maven/bin/'
-        sh 'ls -la "$MAVEN_HOME/bin/mvn" || true'
+        sh '''
+            echo "USER:"
+            whoami
+
+            echo "CURRENT DIRECTORY:"
+            pwd
+
+            echo "MAVEN:"
+            ls -ld /usr/share/maven
+            ls -ld /usr/share/maven/bin
+            ls -l /usr/share/maven/bin/mvn
+
+            echo "PROCESS:"
+            ps -ef | grep '[s]h'
+        '''
     }
 }
     }
