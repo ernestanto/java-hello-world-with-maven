@@ -6,12 +6,13 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-                sh 'java -version'
-                sh 'mvn -version'
-                sh 'mvn clean package'
-            }
-        }
+       stage('Build') {
+    steps {
+        sh 'echo "PATH=$PATH"'
+        sh 'echo "MAVEN_HOME=$MAVEN_HOME"'
+        sh 'ls -la /usr/share/maven/bin/'
+        sh 'ls -la "$MAVEN_HOME/bin/mvn" || true'
+    }
+}
     }
 }
