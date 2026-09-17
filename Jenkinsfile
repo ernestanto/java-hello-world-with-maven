@@ -4,10 +4,14 @@ pipeline {
     stages {
 
         stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
+    steps {
+        sh 'echo "PATH=$PATH"'
+        sh 'whoami'
+        sh 'command -v mvn || true'
+        sh 'ls -l /usr/bin/mvn'
+        sh '/usr/bin/mvn -version'
+    }
+}
 
     }
 }
